@@ -9,9 +9,9 @@ Flicker is a laraval app and as such you can follow the usual laravel installati
 #### To get started
 
 ```
+cp .env.example .env
 docker-compose up -d --build web db phpmyadmin
 docker-compose build workspace
-cp .env.example .env
 docker-compose run --rm workspace ./install.sh
 ```
 
