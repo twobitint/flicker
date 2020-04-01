@@ -3,3 +3,7 @@
 *.scss linguist-vendored
 *.js linguist-vendored
 CHANGELOG.md export-ignore
+
+# Ensure shell script uses LF.
+Dockerfile  eol=lf
+*.sh        eol=lf
