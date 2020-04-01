@@ -23,7 +23,7 @@ if [ ! -d /var/lib/mysql/mysql ]; then
 
     GRANT ALL PRIVILEGES ON *.* TO 'dev'@'%';
 
-    CREATE DATABASE IF NOT EXISTS 'dev';
+    CREATE DATABASE IF NOT EXISTS dev;
 
     FLUSH PRIVILEGES;
 EOF
