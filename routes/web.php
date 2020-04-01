@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Twobitint\TMDB\API;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+
+/**
+ * This route is for testing only and should be removed.
+ */
+Route::get('test', function (API $api) {
+    return $api->discoverMovies([
+        'primary_release_year' => 2010,
+    ]);
 });
