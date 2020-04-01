@@ -1,0 +1,63 @@
+version: '3.7'
+
+volumes:
+  mysql:
+  composer_cache:
+
+networks:
+  backend:
+    driver: bridge
+
+services:
+  db:
+    build:
+      context: ./mysql
+    volumes:
+      - mysql:/var/lib/mysql:delegated
+    networks:
+      - backend
+
+  web:
+    build:
+      context: ./nginx
+    volumes:
+      - ../public:/var/www/public:cached
+    ports:
+      - ${COMPOSE_HOST_HTTP_PORT}:80
+    depends_on:
+      - php
+    networks:
+      - backend
+
+  php:
+    build:
+      context: ./php
+    volumes:
+      - ../:/var/www:cached
+    networks:
+      - backend
+
+  workspace:
+    build:
+      context: ./workspace
+    volumes:
+      - ../:/var/www:cached
+    networks:
+      - backend
+
+  phpmyadmin:
+    build:
+      context: ./phpmyadmin
+    environment:
+      - PMA_USER=dev
+      - PMA_PASSWORD=dev
+    ports:
+      - ${COMPOSE_HOST_PHPMYADMIN_PORT}:80
+    networks:
+      - backend
+
+  npm:
+    build:
+      context: ./npm
+    volumes:
+      - ../:/var/www:delegated
