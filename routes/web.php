@@ -14,16 +14,17 @@ use Twobitint\TMDB\API;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'Welcome')->name('welcome');
 
+Route::namespace('Auth')->group(function () {
+    Route::get('login/facebook', 'LoginWithFacebook')
+        ->name('login');
+    Route::get('login/facebook/callback', 'FacebookCallback');
+});
 
 /**
  * This route is for testing only and should be removed.
  */
 Route::get('test', function (API $api) {
-    return $api->discoverMovies([
-        'primary_release_year' => 2010,
-    ]);
+    return $api->trending('movie');
 });
