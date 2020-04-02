@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "46a5a8fc5ef47c75cfa320ac10db362e",
+    "content-hash": "a187473376e44ea1e2f605d739395892",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3394,27 +3394,32 @@
         },
         {
             "name": "twobitint/tmdb",
-            "version": "v1.0.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twobitint/tmdb.git",
-                "reference": "fe849548ea0a9da3a6b01f755eb788a4f39749c6"
+                "reference": "2a6e2e9d42eb980f4d20d8d1a3586cae90cad264"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twobitint/tmdb/zipball/fe849548ea0a9da3a6b01f755eb788a4f39749c6",
-                "reference": "fe849548ea0a9da3a6b01f755eb788a4f39749c6",
+                "url": "https://api.github.com/repos/twobitint/tmdb/zipball/2a6e2e9d42eb980f4d20d8d1a3586cae90cad264",
+                "reference": "2a6e2e9d42eb980f4d20d8d1a3586cae90cad264",
                 "shasum": ""
             },
             "require": {
+                "guzzlehttp/guzzle": "^6.5",
                 "illuminate/contracts": "^7.0",
                 "illuminate/support": "^7.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^5.0",
+                "phpunit/phpunit": "^8.5"
             },
             "type": "library",
             "extra": {
                 "laravel": {
                     "providers": [
-                        "Twobitint\\TMDB\\TMDBServiceProvider"
+                        "Twobitint\\TMDB\\ServiceProvider"
                     ],
                     "aliases": {
                         "TMDB": "Twobitint\\TMDB\\Facades\\TMDB"
@@ -3442,7 +3447,7 @@
                 "laravel",
                 "tmdb"
             ],
-            "time": "2020-04-01T22:39:24+00:00"
+            "time": "2020-04-02T18:53:17+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -5552,7 +5557,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "twobitint/tmdb": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
