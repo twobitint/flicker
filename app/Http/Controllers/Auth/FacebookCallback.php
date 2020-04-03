@@ -21,17 +21,10 @@ class FacebookCallback extends Controller
         $user = User::firstOrNew(['facebook_id' => $facebook->getId()]);
 
         // Update user data.
-        $user->name = $facebook->getName();
-        $user->nickname = $facebook->getNickname();
-        $user->email = $facebook->getEmail();
-        $user->facebook_id = $facebook->getId();
-        $user->facebook_avatar = $facebook->getAvatar();
-        $user->facebook_token = $facebook->token;
-        // Facebook does not provide a refresh token.
-        $user->facebook_refresh_token = $facebook->refreshToken;
-        // Facebook logins appear to be good for 60 days.
-        $user->facebook_expires_in = $facebook->expiresIn;
-        $user->save();
+        $user->updateFacebookAttributes($facebook);
+
+        // Update friend circles.
+        $user->updateFacebookFriends();
 
         // Login and "remember" this user.
         Auth::login($user, true);

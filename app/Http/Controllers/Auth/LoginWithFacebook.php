@@ -15,6 +15,8 @@ class LoginWithFacebook extends Controller
      */
     public function __invoke()
     {
-        return Socialite::driver('facebook')->redirect();
+        return Socialite::driver('facebook')
+            ->scopes(['user_friends', 'public_profile', 'basic_info'])
+            ->redirect();
     }
 }
