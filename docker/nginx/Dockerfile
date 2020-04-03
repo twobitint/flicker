@@ -1,7 +1,7 @@
 FROM alpine
 
 # install nginx
-RUN apk add --no-cache nginx
+RUN apk add --no-cache nginx openssl bash
 
 # create the required pid folder
 RUN mkdir -p /run/nginx
