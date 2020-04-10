@@ -4,7 +4,12 @@
 
 use App\User;
 use Faker\Generator as Faker;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
+
+/**
+ * Gather some realistic fake user data from an api.
+ */
+$users = Http::get('https://randomuser.me/api/?results=100')->json()['results'];
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +22,18 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
+$factory->define(User::class, function (Faker $faker) use ($users) {
+    $user = $faker->unique()->randomElement($users);
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'email_verified_at' => now(),
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        'remember_token' => Str::random(10),
+        'name' => $user['name']['first'] . ' ' . $user['name']['last'],
+        'nickname' => null,
+        'email' => $user['email'],
+
+        'facebook_id' => $faker->unique()->numberBetween(10000000, 99999999),
+        'facebook_avatar' => $user['picture']['thumbnail'],
+        'facebook_token' => $faker->sha256,
+        'facebook_refresh_token' => null,
+        'facebook_expires_in' => $faker->numberBetween(60 * 60 * 24, 60 * 60 * 24 * 60),
+        'remember_token' => null,
     ];
 });
