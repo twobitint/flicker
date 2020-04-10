@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Notifications\Notifiable;
@@ -37,6 +37,36 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * All swipes for this user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function swipes(): HasMany
+    {
+        return $this->hasMany(Swipe::class);
+    }
+
+    /**
+     * List of like swipes for this user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function likes(): HasMany
+    {
+        return $this->swipes()->liked();
+    }
+
+    /**
+     * List of dislike swipes for this user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function dislikes(): HasMany
+    {
+        return $this->swipes()->disliked();
+    }
 
     /**
      * Get the facebook socialite data into our model.
